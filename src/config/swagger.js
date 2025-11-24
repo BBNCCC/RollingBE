@@ -1,201 +1,198 @@
-const swaggerJsdoc = require('swagger-jsdoc');
-const config = require('./env');
+const swaggerJsdoc = require("swagger-jsdoc");
+const config = require("./env");
 
 const options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'BNCC Feedback API',
-      version: '1.0.0',
-      description: 'Professional Feedback Management API with Express.js and Prisma',
-      contact: {
-        name: 'BNCC',
-        email: 'support@bncc.net',
-      },
+      title: "BNCC Feedback API",
+      version: "1.0.0",
+      description:
+        "Professional Feedback Management API with Express.js and Prisma",
     },
     servers: [
       {
         url: `https://bnccbe.drian.my.id${config.apiPrefix}/${config.apiVersion}`,
-        description: 'Production server',
+        description: "Production server",
       },
       {
         url: `http://localhost:${config.port}${config.apiPrefix}/${config.apiVersion}`,
-        description: 'Development server',
+        description: "Development server",
       },
     ],
     components: {
       schemas: {
         Feedback: {
-          type: 'object',
-          required: ['name', 'email', 'eventName', 'division', 'rating'],
+          type: "object",
+          required: ["name", "email", "eventName", "division", "rating"],
           properties: {
             id: {
-              type: 'integer',
-              description: 'Auto-generated ID',
+              type: "integer",
+              description: "Auto-generated ID",
               example: 1,
             },
             name: {
-              type: 'string',
-              description: 'Name of the person giving feedback',
-              example: 'John Doe',
+              type: "string",
+              description: "Name of the person giving feedback",
+              example: "John Doe",
             },
             email: {
-              type: 'string',
-              format: 'email',
-              description: 'Email address',
-              example: 'john.doe@example.com',
+              type: "string",
+              format: "email",
+              description: "Email address",
+              example: "john.doe@example.com",
             },
             eventName: {
-              type: 'string',
-              description: 'Name of the event',
-              example: 'BNCC Workshop 2024',
+              type: "string",
+              description: "Name of the event",
+              example: "BNCC Workshop 2024",
             },
             division: {
-              type: 'string',
-              enum: ['LnT', 'Eeo', 'PR', 'HRD', 'AnD'],
-              description: 'Division responsible',
-              example: 'LnT',
+              type: "string",
+              enum: ["LnT", "Eeo", "PR", "HRD", "AnD"],
+              description: "Division responsible",
+              example: "LnT",
             },
             rating: {
-              type: 'integer',
+              type: "integer",
               minimum: 1,
               maximum: 5,
-              description: 'Rating from 1 to 5',
+              description: "Rating from 1 to 5",
               example: 5,
             },
             comment: {
-              type: 'string',
+              type: "string",
               nullable: true,
-              description: 'Optional comment',
-              example: 'Great event!',
+              description: "Optional comment",
+              example: "Great event!",
             },
             suggestion: {
-              type: 'string',
+              type: "string",
               nullable: true,
-              description: 'Optional suggestion',
-              example: 'More interactive sessions please',
+              description: "Optional suggestion",
+              example: "More interactive sessions please",
             },
             createdAt: {
-              type: 'string',
-              format: 'date-time',
-              description: 'Timestamp when feedback was created',
-              example: '2024-01-15T10:30:00.000Z',
+              type: "string",
+              format: "date-time",
+              description: "Timestamp when feedback was created",
+              example: "2024-01-15T10:30:00.000Z",
             },
             status: {
-              type: 'string',
-              enum: ['open', 'in_review', 'resolved'],
-              description: 'Current status of feedback',
-              example: 'open',
+              type: "string",
+              enum: ["open", "in_review", "resolved"],
+              description: "Current status of feedback",
+              example: "open",
             },
           },
         },
         FeedbackInput: {
-          type: 'object',
-          required: ['name', 'email', 'eventName', 'division', 'rating'],
+          type: "object",
+          required: ["name", "email", "eventName", "division", "rating"],
           properties: {
             name: {
-              type: 'string',
-              example: 'John Doe',
+              type: "string",
+              example: "John Doe",
             },
             email: {
-              type: 'string',
-              format: 'email',
-              example: 'john.doe@example.com',
+              type: "string",
+              format: "email",
+              example: "john.doe@example.com",
             },
             eventName: {
-              type: 'string',
-              example: 'BNCC Workshop 2024',
+              type: "string",
+              example: "BNCC Workshop 2024",
             },
             division: {
-              type: 'string',
-              enum: ['LnT', 'Eeo', 'PR', 'HRD', 'AnD'],
-              example: 'LnT',
+              type: "string",
+              enum: ["LnT", "Eeo", "PR", "HRD", "AnD"],
+              example: "LnT",
             },
             rating: {
-              type: 'integer',
+              type: "integer",
               minimum: 1,
               maximum: 5,
               example: 5,
             },
             comment: {
-              type: 'string',
+              type: "string",
               nullable: true,
-              example: 'Great event!',
+              example: "Great event!",
             },
             suggestion: {
-              type: 'string',
+              type: "string",
               nullable: true,
-              example: 'More interactive sessions please',
+              example: "More interactive sessions please",
             },
           },
         },
         FeedbackUpdate: {
-          type: 'object',
+          type: "object",
           properties: {
             eventName: {
-              type: 'string',
-              example: 'BNCC Workshop 2024 Updated',
+              type: "string",
+              example: "BNCC Workshop 2024 Updated",
             },
             division: {
-              type: 'string',
-              enum: ['LnT', 'Eeo', 'PR', 'HRD', 'AnD'],
-              example: 'PR',
+              type: "string",
+              enum: ["LnT", "Eeo", "PR", "HRD", "AnD"],
+              example: "PR",
             },
             rating: {
-              type: 'integer',
+              type: "integer",
               minimum: 1,
               maximum: 5,
               example: 4,
             },
             comment: {
-              type: 'string',
+              type: "string",
               nullable: true,
-              example: 'Updated comment',
+              example: "Updated comment",
             },
             suggestion: {
-              type: 'string',
+              type: "string",
               nullable: true,
-              example: 'Updated suggestion',
+              example: "Updated suggestion",
             },
             status: {
-              type: 'string',
-              enum: ['open', 'in_review', 'resolved'],
-              example: 'in_review',
+              type: "string",
+              enum: ["open", "in_review", "resolved"],
+              example: "in_review",
             },
           },
         },
         Error: {
-          type: 'object',
+          type: "object",
           properties: {
             success: {
-              type: 'boolean',
+              type: "boolean",
               example: false,
             },
             message: {
-              type: 'string',
-              example: 'Error message',
+              type: "string",
+              example: "Error message",
             },
             errors: {
-              type: 'array',
+              type: "array",
               items: {
-                type: 'object',
+                type: "object",
               },
             },
           },
         },
         SuccessResponse: {
-          type: 'object',
+          type: "object",
           properties: {
             success: {
-              type: 'boolean',
+              type: "boolean",
               example: true,
             },
             message: {
-              type: 'string',
-              example: 'Operation successful',
+              type: "string",
+              example: "Operation successful",
             },
             data: {
-              type: 'object',
+              type: "object",
             },
           },
         },
@@ -203,12 +200,12 @@ const options = {
     },
     tags: [
       {
-        name: 'Feedback',
-        description: 'Feedback management endpoints',
+        name: "Feedback",
+        description: "Feedback management endpoints",
       },
     ],
   },
-  apis: ['./src/routes/*.js'], // Path to the API routes
+  apis: ["./src/routes/*.js"], // Path to the API routes
 };
 
 const swaggerSpec = swaggerJsdoc(options);
