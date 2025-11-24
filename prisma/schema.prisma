@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Feedback {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  email      String   @db.VarChar(255)
+  eventName  String   @map("event_name") @db.VarChar(255)
+  division   Division
+  rating     Int      @db.TinyInt
+  comment    String?  @db.Text
+  suggestion String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+  status     Status   @default(open)
+
+  @@map("feedbacks")
+  @@index([status])
+  @@index([division])
+  @@index([createdAt])
+}
+
+enum Division {
+  LnT
+  Eeo
+  PR
+  HRD
+  AnD
+}
+
+enum Status {
+  open
+  in_review
+  resolved
+}
