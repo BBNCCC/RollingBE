@@ -15,6 +15,10 @@ const options = {
     },
     servers: [
       {
+        url: `https://bnccbe.drian.my.id${config.apiPrefix}/${config.apiVersion}`,
+        description: 'Production server',
+      },
+      {
         url: `http://localhost:${config.port}${config.apiPrefix}/${config.apiVersion}`,
         description: 'Development server',
       },
