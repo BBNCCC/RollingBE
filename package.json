@@ -2,10 +2,10 @@
   "name": "bncc-feedback-api",
   "version": "1.0.0",
   "description": "Professional Feedback API with Express.js, Prisma, and Swagger",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "build": "prisma generate && prisma migrate deploy",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
